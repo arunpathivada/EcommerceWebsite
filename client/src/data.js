@@ -1,11 +1,11 @@
 export const sliderItems = [
-    {
-      id: 1,
-      img: "https://i.ibb.co/XsdmR2c/1.png",
-      title: "SUMMER SALE",
-      desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
-      bg: "f5fafd",
-    },
+  {
+    id: 3,
+    img: "https://i.ibb.co/cXFnLLV/3.png",
+    title: "LOUNGEWEAR LOVE",
+    desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
+    bg: "fbf0f4",
+  },
     {
       id: 2,
       img: "https://i.ibb.co/DG69bQ4/2.png",
@@ -56,7 +56,7 @@ export const sliderItems = [
     },
     {
       id:2,
-      img:"https://cdn.shopify.com/s/files/1/0101/4832/products/Angela_Natural_Tee.png?v=1606780388",
+      img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKFlH70E_KH1tFLUopXsuB7MUkHrq9HyvBT121av0_U6FToXjJ2jIfCW-UBp0zD8Er5UY&usqp=CAU",
     },
     {
       id:3,
