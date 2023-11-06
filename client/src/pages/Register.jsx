@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
+import { useRef, useState } from "react";
+import { publicRequest, userRequest } from "./requestMethod";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   width: 100vw;
@@ -53,25 +56,55 @@ const Button = styled.button`
   color: white;
   cursor: pointer;
 `;
-
+const Error = styled.span`
+  color: red;
+  padding-left: 20px;
+`
 const Register = () => {
+  const userRef= useRef();
+  const emailRef= useRef();
+  const passRef = useRef();
+  const cpassRef = useRef();
+  const [error,setError] = useState(false);
+  const [success,setSuccess] = useState();
+  const navigate = useNavigate();
+  
+
+  const HandleClick = async(e)=>{
+    e.preventDefault();
+    const user = {
+      username:userRef.current.value,
+      email:emailRef.current.value,
+      password:passRef.current.value,
+    }
+    try{
+      if(passRef.current.value === cpassRef.current.value){
+      await publicRequest.post("/auth/register",user);
+      navigate('/login', { replace: true });
+    }
+      }
+    catch(err){
+      console.log(err);
+      setError(true);
+    }
+  }
   return (
     <Container>
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
         <Form>
-          <Input placeholder="name" />
-          <Input placeholder="last name" />
-          <Input placeholder="username" />
-          <Input placeholder="email" />
-          <Input placeholder="password" />
-          <Input placeholder="confirm password" />
+          <Input placeholder="full name" />
+          <Input placeholder="username" ref ={userRef} />
+          <Input placeholder="email" ref= {emailRef}/>
+          <Input placeholder="password" ref= {passRef}/>
+          <Input placeholder="confirm password" ref={cpassRef} />
           <Agreement>
             By creating an account, I consent to the processing of my personal
             data in accordance with the <b>PRIVACY POLICY</b>
           </Agreement>
-          <Button>CREATE</Button>
+          <Button onClick={HandleClick}>CREATE</Button>
         </Form>
+        {error && <Error>something went wrong</Error>}
       </Wrapper>
     </Container>
   );

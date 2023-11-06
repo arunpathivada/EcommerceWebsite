@@ -125,7 +125,8 @@ const Product = () => {
   const location = useLocation();
   const dispatch=useDispatch();
   console.log(location);
-  const pid= location.pathname.split("/")[2];
+  const pid= location.pathname.split("/")[3];
+  console.log(pid)
   const [product,setProduct]=useState({});
  const [quantity,setQuantity]=useState(1);
  const [color,setColor]= useState("Blue");
@@ -133,7 +134,7 @@ const Product = () => {
   useEffect(()=>{
     const getProduct = async()=>{
       try{
-        const res= await publicRequest.get("/products/find/"+pid);
+        const res = await publicRequest.get("/products/find/"+pid);
         setProduct(res.data);
       }catch(err){
       }

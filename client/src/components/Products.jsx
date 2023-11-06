@@ -18,7 +18,8 @@ const Products = ({cat,filters,sort}) => {
       try{
         const apiUrl = process.env.API_URL;
         const endpoint = cat ? `https://ecommerce2-emjf.onrender.com/api/products?category=${cat}` : `https://ecommerce2-emjf.onrender.com/api/products`;
-        const res = await axios.get(endpoint);setProducts(res.data);
+        const res = await axios.get(endpoint);
+        setProducts(res.data);
       }catch(err){
         console.log(err)
       }

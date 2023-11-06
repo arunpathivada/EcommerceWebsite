@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = process.env.ADD;
+const BASE_URL = "https://ecommerce-t9ub.onrender.com/api";
 
 const persistRoot = localStorage.getItem("persist:root");
   let admin = ""
@@ -8,9 +8,10 @@ if (persistRoot) {
   const persistRootParsed = JSON.parse(persistRoot);
   const y=persistRootParsed.user
   const x= JSON.parse(y);
-  console.log(x);
+  if(x.currentUser){
   admin = x.currentUser.isAdmin;
   TOKEN = x.currentUser.accessToken;
+  }
 }
 export const publicRequest = axios.create({
     baseURL:BASE_URL,

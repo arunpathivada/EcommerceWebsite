@@ -7,7 +7,9 @@ import { mobile } from "../responsive";
 import { Add, Remove } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 import StripeCheckout from "react-stripe-checkout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { userRequest } from "./requestMethod";
 const Container = styled.div``;
 const KEY = process.env.REACT_APP_STRIPE;
 const Wrapper = styled.div`
@@ -154,6 +156,7 @@ const Button = styled.button`
   background-color: black;
   color: white;
   font-weight: 600;
+  cursor: pointer;
 `;
 
 const Cart = () => {
@@ -164,6 +167,20 @@ const Cart = () => {
     setStripeToken(token);
   };
   console.log(stripeToken);
+  useEffect(()=>{
+    const makeRequest = async ()=>{
+      try{
+        const res= await userRequest.post("/checkout/payment",{
+          tokenId:stripeToken.id,
+          amount:cart.total*100
+        })
+      }catch(err){
+        console.log(err)
+      }
+    }
+    stripeToken && makeRequest();
+
+  },[stripeToken])
   return (
     <Container>
       <Navbar />
@@ -171,7 +188,9 @@ const Cart = () => {
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>
+          <Link to = "/">
           <TopButton>CONTINUE SHOPPING</TopButton>
+          </Link>
           <TopTexts>
             <TopText>Shopping Bag(2)</TopText>
             <TopText>Your Wishlist (0)</TopText>
@@ -227,7 +246,7 @@ const Cart = () => {
               <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
             </SummaryItem>
             <StripeCheckout
-              name="Arun Shop"
+              name="FashIn Shop"
               image="https://media.architecturaldigest.com/photos/5eaacba5b7a54704073c9077/2:1/w_1280,c_limit/GettyImages-1221703114.jpg"
               billingAddress
               shippingAddress
